@@ -1,0 +1,35 @@
+{
+  "name": "api-ecommerce",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wesleymp/api-ecommerce.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wesleymp/api-ecommerce/issues"
+  },
+  "homepage": "https://github.com/wesleymp/api-ecommerce#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
+    "dotenv": "^14.3.0",
+    "express": "^4.17.2",
+    "express-fileupload": "^1.2.1",
+    "jimp": "^0.16.1",
+    "mongoose": "^6.1.8",
+    "pg": "^8.7.1",
+    "uui": "^1.0.7"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
