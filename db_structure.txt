@@ -18,12 +18,13 @@
 - ads
     - _id
     - url: [{ url, default: boolean }]
-    - id_user
-    - dateCreated
     - title
-    - category
     - price
     - priceNegotiable: boolean
     - description
     - views
     - status
+    - dateCreated
+    - id_user
+    - category
+    - state
