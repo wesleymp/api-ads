@@ -17,7 +17,7 @@
 
 - ads
     - _id
-    - url: [{ url, default: boolean }]
+    - image: [{ url, default: boolean }]
     - title
     - price
     - priceNegotiable: boolean
