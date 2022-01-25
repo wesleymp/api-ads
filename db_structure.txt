@@ -1,0 +1,29 @@
+- users
+    - _id
+    - name
+    - email
+    - password
+    - state
+    - token
+
+- state
+    - _id
+    - name
+
+- categorys
+    - _id
+    - name
+    - slug
+
+- ads
+    - _id
+    - url: [{ url, default: boolean }]
+    - id_user
+    - dateCreated
+    - title
+    - category
+    - price
+    - priceNegotiable: boolean
+    - description
+    - views
+    - status
