@@ -15,8 +15,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(router);
 
-router.use((_req, res) => {
-  return res.status(404).json({ code: 'NOT_FOUND', error: 'Rota não encontrada.' })
+app.use((_req, res) => {
+  return res.status(404).json({ err: 'Rota não encontrada.' })
 });
 
 module.exports = app;
