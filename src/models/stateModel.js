@@ -1,16 +1,11 @@
-const mongoose = require('mongoose');
+const mongoose = require('./connection');
 
 mongoose.Promise = global.Promise;
 
-const modelSchema = mongoose.Schema({
+const modelSchema = new mongoose.Schema({
   name: String,
 });
 
-const modelName = 'stateModel';
-
-if (mongoose.connection && mongoose.connection.model[modelName]) {
-  module.exports = mongoose.connection.model[modelName];
-  return;
-}
-
-module.exports = mongoose.model(modelName, modelSchema);
+(mongoose.connection && mongoose.connection.models['states']) ?
+  module.exports = mongoose.connection.models['states'] :
+  module.exports = mongoose.model('states', modelSchema);
