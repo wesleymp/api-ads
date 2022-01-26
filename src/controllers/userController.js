@@ -10,6 +10,19 @@ const getState = async (_req, res) => {
   }
 };
 
+const signup = async (req, res) => {
+  const { name, email, password, state } = req.body;
+
+  try {
+    const signupData = await userService.signup(name, email, password, state);
+
+    return res.status(201).json({ message: 'Usuário registrado com sucesso!', data: signupData });
+  } catch (error) {
+    return res.status(400).json({ err: error.message });
+  }
+}
+
 module.exports = {
   getState,
+  signup,
 };

@@ -4,7 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "set NODE_ENV=test& jest --runInBand --forceExit",
     "start": "node src/server.js",
     "dev": "nodemon src/server.js"
   },
@@ -32,8 +31,7 @@
     "uui": "^1.0.7"
   },
   "devDependencies": {
-    "jest": "^27.4.7",
     "nodemon": "^2.0.15",
-    "supertest": "^6.2.2"
+    "sinon": "^12.0.1"
   }
 }

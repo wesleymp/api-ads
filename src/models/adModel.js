@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
 
-const modelSchema = mongoose.Schema({
+const modelSchema = new mongoose.Schema({
     images: [Object],
     title: String,
     price: Number,
@@ -16,11 +16,6 @@ const modelSchema = mongoose.Schema({
     state: String,
 });
 
-const modelName = 'adModel';
-
-if (mongoose.connection && mongoose.connection.model[modelName]) {
-  module.exports = mongoose.connection.model[modelName];
-  return;
-}
-
-module.exports = mongoose.model(modelName, modelSchema);
+(mongoose.connection && mongoose.connection.modes['ads']) ?
+  module.exports = mongoose.connection.modes['ads'] :
+  module.exports = mongoose.model('ads', modelSchema);

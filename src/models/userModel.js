@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
 
-const modelSchema = mongoose.Schema({
+const modelSchema = new mongoose.Schema({
   name: String,
   email: String,
   password: String,
@@ -10,11 +10,6 @@ const modelSchema = mongoose.Schema({
   token: String,
 });
 
-const modelName = 'userModel';
-
-if (mongoose.connection && mongoose.connection.model[modelName]) {
-  module.exports = mongoose.connection.model[modelName];
-  return;
-}
-
-module.exports = mongoose.model(modelName, modelSchema);
+(mongoose.connection && mongoose.connection.models['users']) ?
+  module.exports = mongoose.connection.models['users']:
+  module.exports = mongoose.model('users', modelSchema);
