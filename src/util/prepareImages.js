@@ -17,21 +17,21 @@ const addImage = async (buffer) => {
   return newName;
 }
 
-const prepareImages = async (images) => {
-  if (images.length === undefined) {
-    if (!mimetypes.includes(images.mimetype)) {
-      throw new Error('Tipo de imagem inválido.')
-    }
-
-    const dataImage =  {
-      name: await addImage(images.data),
-      url: `${process.env.BASE_URL}/media/${await addImage(images.data)}`,
-      default: false,
-    };
-
-    return [dataImage];
+const sigleImage = async (images) => {
+  if (!mimetypes.includes(images.mimetype)) {
+    throw new Error('Tipo de imagem inválido.')
   }
 
+  const dataImage =  {
+    name: await addImage(images.data),
+    url: `${process.env.BASE_URL}/media/${await addImage(images.data)}`,
+    default: false,
+  };
+
+  return [dataImage];
+};
+
+const multImages = async (images) => {
   const listImages = [];
 
   for(let i = 0; i < images.length; i += 1) {
@@ -49,6 +49,14 @@ const prepareImages = async (images) => {
   }
 
   return listImages;
+};
+
+const prepareImages = async (images) => {
+  if (images.length === undefined) {
+    return await sigleImage(images);
+  }
+
+  return await multImages(images);
 }
 
 module.exports = {
