@@ -1,6 +1,7 @@
 const { Router } = require('express');
 
 const userController = require('../controllers/userController');
+const adsController = require('../controllers/adsController');
 const signupMiddleware = require('../middlewares/signupMiddleware');
 const signinMiddleware = require('../middlewares/signinMiddleware');
 const updateUserMiddleware = require('../middlewares/updateUserMiddleware');
@@ -44,5 +45,7 @@ router.put(
   authMiddleware,
   userController.updateInfo,
 );
+
+router.get('/categories', adsController.getCategories);
 
 module.exports = router;

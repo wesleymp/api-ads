@@ -7,6 +7,6 @@ const modelSchema = new mongoose.Schema({
   slug: String,
 });
 
-(mongoose.connection && mongoose.connection.models['categorys']) ?
-  module.exports = mongoose.connection.models['categorys'] :
-  module.exports = mongoose.model('categorys', modelSchema);
+(mongoose.connection && mongoose.connection.models['categories']) ?
+  module.exports = mongoose.connection.models['categories'] :
+  module.exports = mongoose.model('categories', modelSchema);
