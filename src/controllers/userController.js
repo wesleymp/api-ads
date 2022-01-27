@@ -46,9 +46,23 @@ const info = async (req, res) => {
   }
 };
 
+const updateInfo = async (req, res) => {
+  const { name, password, state } = req.body;
+  const { authorization } = req.headers;
+
+  try {
+    await userService.updateInfo(authorization, name, password, state);
+
+    return res.status(200).json({ message: 'Usuário atualizado com sucesso!' });
+  } catch (error) {
+    return res.status(400).json({ err: error.message });
+  }
+};
+
 module.exports = {
   getState,
   signup,
   signin,
   info,
+  updateInfo,
 };

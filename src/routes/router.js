@@ -3,6 +3,7 @@ const { Router } = require('express');
 const userController = require('../controllers/userController');
 const signupMiddleware = require('../middlewares/signupMiddleware');
 const signinMiddleware = require('../middlewares/signinMiddleware');
+const updateUserMiddleware = require('../middlewares/updateUserMiddleware');
 const authMiddleware = require('../middlewares/authMiddleware');
 
 const router = Router();
@@ -33,6 +34,15 @@ router.get(
   '/user/me',
   authMiddleware,
   userController.info,
+);
+
+router.put(
+  '/user/me',
+  updateUserMiddleware.validateName,
+  updateUserMiddleware.validatePassword,
+  updateUserMiddleware.validateState,
+  authMiddleware,
+  userController.updateInfo,
 );
 
 module.exports = router;

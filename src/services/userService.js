@@ -86,7 +86,7 @@ const info = async (authorization) => {
   const adList = [];
 
   for (let i in ads) {
-    const category = await CategoryModel.findById(ads[i].category);
+    const category = await CategoryModel.findById(mongoose.Types.ObjectId(ads[i].category));
 
     adList.push({ ...ads[i], category: category.slug });
   }
@@ -99,9 +99,30 @@ const info = async (authorization) => {
   };
 };
 
+const updateInfo = async (authorization, name, password, state) => {
+  const splitToken = authorization.split(' ');
+  const token = splitToken[1];
+
+  const userData = {};
+
+  if (name) userData.name = name;
+  if (password) userData.password = bcrypt.hashSync(password, 10);
+  if (state) {
+    if (!mongoose.Types.ObjectId.isValid(state)) throw new Error('ID do estado está inválido.');
+    const checkState = await StateModel.findById(mongoose.Types.ObjectId(state));
+
+    if (!checkState) throw new Error('Estado não existe.');
+
+    userData.state = state;
+  }
+
+  await UserModel.findOneAndUpdate({ token }, { $set: userData });
+};
+
 module.exports = {
   getState,
   signup,
   signin,
   info,
+  updateInfo,
 };
