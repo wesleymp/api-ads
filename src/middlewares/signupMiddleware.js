@@ -1,6 +1,10 @@
 const validateName = (req, res, next) => {
   const { name } = req.body;
 
+  if (!name || name === '') {
+    return res.status(400).json({ err: 'Informe um nome.' });
+  }
+
   if (typeof name !== 'string') {
     return res.status(400).json({ err: 'O nome do usuário deve ser uma string.' });
   }
@@ -26,6 +30,10 @@ const validateEmail = (req, res, next) => {
 const validatePassword = (req, res, next) => {
   const { password, password_confirmation } = req.body;
 
+  if (!password || password === '' || !password_confirmation || password_confirmation === '') {
+    return res.status(400).json({ err: 'Informe uma senha.' });
+  }
+
   if (typeof password !== 'string' || typeof password_confirmation !== 'string') {
     return res.status(400).json({ err: 'A senha deve ser uma string.' });
   }
@@ -43,6 +51,10 @@ const validatePassword = (req, res, next) => {
 
 const validateState = (req, res, next) => {
   const { state } = req.body;
+
+  if (!state || state === '') {
+    return res.status(400).json({ err: 'Informe o ID do estado.' });
+  }
 
   if (typeof state !== 'string') {
     return res.status(400).json({ err: 'O id do estado deve ser uma string.' });
