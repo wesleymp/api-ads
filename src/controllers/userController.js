@@ -20,9 +20,22 @@ const signup = async (req, res) => {
   } catch (error) {
     return res.status(400).json({ err: error.message });
   }
-}
+};
+
+const signin = async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    const signinData = await userService.signin(email, password);
+
+    return res.status(200).json({ message: 'Login efetuado com sucesso!', data: signinData });
+  } catch (error) {
+    return res.status(400).json({ err: error.message });
+  }
+};
 
 module.exports = {
   getState,
   signup,
+  signin,
 };

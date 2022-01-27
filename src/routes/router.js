@@ -1,7 +1,8 @@
 const { Router } = require('express');
 
-const useController = require('../controllers/userController');
-const signMiddleware = require('../middlewares/signupMiddleware');
+const userController = require('../controllers/userController');
+const signupMiddleware = require('../middlewares/signupMiddleware');
+const signinMiddleware = require('../middlewares/signinMiddleware');
 
 const router = Router();
 
@@ -9,15 +10,22 @@ router.get('/', (_req, res) => {
   return res.status(200).json({ message: 'OK' });
 });
 
-router.get('/states', useController.getState);
+router.get('/states', userController.getState);
 
 router.post(
   '/signup',
-  signMiddleware.validateName,
-  signMiddleware.validateEmail,
-  signMiddleware.validatePassword,
-  signMiddleware.validateState,
-  useController.signup,
+  signupMiddleware.validateName,
+  signupMiddleware.validateEmail,
+  signupMiddleware.validatePassword,
+  signupMiddleware.validateState,
+  userController.signup,
+);
+
+router.post(
+  '/signin',
+  signinMiddleware.validateEmail,
+  signinMiddleware.validatePassword,
+  userController.signin,
 );
 
 module.exports = router;

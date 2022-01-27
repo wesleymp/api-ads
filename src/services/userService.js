@@ -52,7 +52,29 @@ const signup = async (name, email, password, state) => {
   return { token: newUser.token };
 };
 
+const signin = async (email, password) => {
+  const user = await emailAlreadyExist(email);
+
+  if (!user) {
+    throw new Error('Email ou senha inválidos.');
+  }
+
+  const matchPassword = bcrypt.compareSync(password, user.password);
+
+  if (!matchPassword) {
+    throw new Error('Email ou senha inválidos.');
+  }
+
+  const dataToken = { name: user.name, email };
+
+  user.token = genereteJWT(dataToken);
+  await user.save();
+
+  return { token: user.token }
+};
+
 module.exports = {
   getState,
   signup,
+  signin,
 };
