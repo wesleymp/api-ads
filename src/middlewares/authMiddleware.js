@@ -2,6 +2,11 @@ const { verifyToken } = require('../util/jwt');
 
 const authMiddleware = (req, res, next) => {
   const { authorization } = req.headers;
+
+  if (!authorization) {
+    return res.status(401).json({ err: 'Nenhum token encontrado.' });
+  }
+
   const splitToken = authorization.split(' ');
   const token = splitToken[1];
 
