@@ -5,6 +5,7 @@ const adsController = require('../controllers/adsController');
 const signupMiddleware = require('../middlewares/signupMiddleware');
 const signinMiddleware = require('../middlewares/signinMiddleware');
 const updateUserMiddleware = require('../middlewares/updateUserMiddleware');
+const adsMiddleware = require('../middlewares/adsMiddleware');
 const authMiddleware = require('../middlewares/authMiddleware');
 
 const router = Router();
@@ -47,5 +48,13 @@ router.put(
 );
 
 router.get('/categories', adsController.getCategories);
+
+router.post(
+  '/ad/add',
+  authMiddleware,
+  adsMiddleware.validateTitle,
+  adsMiddleware.validateCategory,
+  adsController.addAd,
+);
 
 module.exports = router;
