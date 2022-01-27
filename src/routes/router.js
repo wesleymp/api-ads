@@ -3,6 +3,7 @@ const { Router } = require('express');
 const userController = require('../controllers/userController');
 const signupMiddleware = require('../middlewares/signupMiddleware');
 const signinMiddleware = require('../middlewares/signinMiddleware');
+const authMiddleware = require('../middlewares/authMiddleware');
 
 const router = Router();
 
@@ -26,6 +27,12 @@ router.post(
   signinMiddleware.validateEmail,
   signinMiddleware.validatePassword,
   userController.signin,
+);
+
+router.get(
+  '/user/me',
+  authMiddleware,
+  userController.info,
 );
 
 module.exports = router;

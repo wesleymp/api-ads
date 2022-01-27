@@ -16,6 +16,6 @@ const modelSchema = new mongoose.Schema({
     state: String,
 });
 
-(mongoose.connection && mongoose.connection.modes['ads']) ?
-  module.exports = mongoose.connection.modes['ads'] :
+(mongoose.connection && mongoose.connection.models['ads']) ?
+  module.exports = mongoose.connection.models['ads'] :
   module.exports = mongoose.model('ads', modelSchema);

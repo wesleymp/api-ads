@@ -3,6 +3,8 @@ const bcrypt = require('bcrypt');
 
 const StateModel = require('../models/StateModel');
 const UserModel = require('../models/UserModel');
+const AdModel = require('../models/AdModel');
+const CategoryModel = require('../models/CategoryModel');
 const { genereteJWT } = require('../util/jwt');
 
 const getState = async () => {
@@ -73,8 +75,33 @@ const signin = async (email, password) => {
   return { token: user.token }
 };
 
+const info = async (authorization) => {
+  const splitToken = authorization.split(' ');
+  const token = splitToken[1];
+
+  const user = await UserModel.findOne({ token });
+  const state = await StateModel.findById(user.state);
+  const ads = await AdModel.find({ id_user: user._id.toString() });
+
+  const adList = [];
+
+  for (let i in ads) {
+    const category = await CategoryModel.findById(ads[i].category);
+
+    adList.push({ ...ads[i], category: category.slug });
+  }
+
+  return {
+    name: user.name,
+    email: user.email,
+    state: state.name,
+    ads: adList,
+  };
+};
+
 module.exports = {
   getState,
   signup,
   signin,
+  info,
 };

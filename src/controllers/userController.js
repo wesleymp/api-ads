@@ -34,8 +34,21 @@ const signin = async (req, res) => {
   }
 };
 
+const info = async (req, res) => {
+  const { authorization } = req.headers;
+
+  try {
+    const infoData = await userService.info(authorization);
+
+    return res.status(200).json({ data: infoData });
+  } catch (error) {
+    return res.status(400).json({ err: error.message });
+  }
+};
+
 module.exports = {
   getState,
   signup,
   signin,
+  info,
 };
