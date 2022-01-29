@@ -22,9 +22,11 @@ const sigleImage = async (images) => {
     throw new Error('Tipo de imagem inválido.')
   }
 
+  const newImage = await addImage(images.data);
+
   const dataImage =  {
-    name: await addImage(images.data),
-    url: `${process.env.BASE_URL}/media/${await addImage(images.data)}`,
+    name: newImage,
+    url: `${process.env.BASE_URL}/media/${newImage}`,
     default: false,
   };
 
@@ -39,9 +41,11 @@ const multImages = async (images) => {
       throw new Error('Tipo de imagem inválido.')
     }
 
+    const newImage = await addImage(images[i].data);
+
     const dataImage =  {
-      name: await addImage(images[i].data),
-      url: `${process.env.BASE_URL}/media/${await addImage(images[i].data)}`,
+      name: newImage,
+      url: `${process.env.BASE_URL}/media/${newImage}`,
       default: false,
     };
 
