@@ -57,4 +57,6 @@ router.post(
   adsController.addAd,
 );
 
+router.get('/ad/list', adsController.listAds);
+
 module.exports = router;

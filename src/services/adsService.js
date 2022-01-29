@@ -15,14 +15,12 @@ const getCategories = async () => {
     throw new Error('Nenhuma categoria registrada.');
   }
 
-  const newCategories = [];
-
-  for(let i in categories) {
-    newCategories.push({
-      ...categories[i]._doc,
-      image: `${process.env.BASE_URL}/assets/images/${categories[i].slug}.png`,
-    });
-  };
+  const newCategories = categories.map((cat) => {
+    return {
+      ...cat._doc,
+      image: `${process.env.BASE_URL}/assets/images/${cat.slug}.png`,
+    };
+  });
 
   return newCategories;
 };
@@ -76,7 +74,24 @@ const addAd = async (
   return newAd;
 };
 
+const listAds = async (sort, offset, limit, q, cat, state) => {
+  const dataAds = await AdModel.find({ status: true });
+
+  const ads = dataAds.map((ad) => {
+    return {
+      id: ad._id,
+      title: ad.title,
+      price: ad.price,
+      priceNegotiable: ad.priceNegotiable,
+      image: ad.images.find((image) => image.default === true).url,
+    };
+  });
+
+  return ads;
+};
+
 module.exports = {
   getCategories,
   addAd,
+  listAds,
 };

@@ -36,7 +36,19 @@ const addAd = async (req, res) => {
   }
 };
 
+const listAds = async (req, res) => {
+  const { sort = 'asc', offset = 0, limit = 8, q, cat, state } = req.query;
+  try {
+    const dataAds = await adsService.listAds(sort, offset, limit, q, cat, state);
+
+    return res.status(200).json({ data: dataAds });
+  } catch (error) {
+    return res.status(400).json({ err: error.message });
+  }
+};
+
 module.exports = {
   getCategories,
   addAd,
+  listAds,
 };
